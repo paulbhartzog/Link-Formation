@@ -53,21 +53,6 @@ to-report one-available-node
   report this-available-node
 end
 
-to layout
-  repeat 3 [
-    let factor sqrt count turtles
-    layout-spring turtles links (1 / factor) (7 / factor) (1 / factor)
-    display
-  ]
-  ;; don't bump the edges of the world
-  let x-offset max [xcor] of turtles + min [xcor] of turtles
-  let y-offset max [ycor] of turtles + min [ycor] of turtles
-  ;; big jumps look funny, so only adjust a little each time
-  set x-offset limit-magnitude x-offset 0.1
-  set y-offset limit-magnitude y-offset 0.1
-  ask turtles [ setxy (xcor - x-offset / 2) (ycor - y-offset / 2) ]
-end
-
 to-report limit-magnitude [number limit]
   if number > limit [ report limit ]
   if number < (- limit) [ report (- limit) ]
@@ -214,8 +199,8 @@ SLIDER
 max-degree
 max-degree
 0
-5
-5
+10
+10
 1
 1
 NIL
@@ -228,9 +213,9 @@ SLIDER
 234
 initial-nodes
 initial-nodes
-2
+1
 100
-2
+100
 1
 1
 NIL
