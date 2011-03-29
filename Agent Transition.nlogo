@@ -5,6 +5,7 @@ globals
 [
   node1
   node2
+  step
 ]
 
 ;; ----- Setup Procedures ----- ;;
@@ -20,15 +21,17 @@ end
 ;; ----- Main Procedures ----- ;;
 
 to go
-  make-node
+  make-nodes
   add-links
   repeat 5 [ layout-spring turtles links 0.2 5 1 ]
+  graph
+  set step (step + 1)
   tick
 end
 
 ;; used for creating a new node
-to make-node
-  crt 1 [ set color red ]
+to make-nodes
+  crt new-nodes-to-add [ set color red ]
 end
 
 to add-links
@@ -53,17 +56,22 @@ to-report one-available-node
   report this-available-node
 end
 
-to-report limit-magnitude [number limit]
-  if number > limit [ report limit ]
-  if number < (- limit) [ report (- limit) ]
-  report number
+;; ----- Plotting Procedures ----- ;;
+
+to graph
+  let total-links count links
+  let total-turtles count turtles
+  let average-degree total-links / total-turtles
+  set-current-plot "Average Degree"
+  set-current-plot-pen "default"
+  plotxy step average-degree
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
 343
-83
+67
 808
-569
+553
 45
 45
 5.0
@@ -200,7 +208,7 @@ max-degree
 max-degree
 0
 10
-10
+5
 1
 1
 NIL
@@ -215,7 +223,7 @@ initial-nodes
 initial-nodes
 1
 100
-100
+1
 1
 1
 NIL
@@ -242,6 +250,38 @@ node2
 0
 1
 11
+
+SLIDER
+6
+241
+178
+274
+new-nodes-to-add
+new-nodes-to-add
+1
+100
+5
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+6
+316
+328
+553
+Average Degree
+Step
+Links
+0.0
+10.0
+0.0
+10.0
+true
+true
+PENS
+"default" 1.0 0 -16777216 true
 
 @#$#@#$#@
 @#$#@#$#@
