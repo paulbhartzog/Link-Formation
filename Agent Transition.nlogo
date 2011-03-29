@@ -13,7 +13,7 @@ to setup
   clear-all
   set-default-shape turtles "circle"
   ;; make the initial network of two turtles and an edge
-  crt initial-nodes
+  crt initial-nodes [ set color red ]
   add-links        ;; first link
 end
 
@@ -28,9 +28,7 @@ end
 
 ;; used for creating a new node
 to make-node
-  crt 1 [
-    set color red
-  ]
+  crt 1 [ set color red ]
 end
 
 to add-links
@@ -232,7 +230,7 @@ initial-nodes
 initial-nodes
 2
 100
-10
+2
 1
 1
 NIL
