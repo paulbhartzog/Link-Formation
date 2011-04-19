@@ -50,6 +50,22 @@ to add-links
   ]
 end
 
+to decay
+  if count links < 2 [ stop ]
+  ask links [ set color gray ]
+  ;; remove a link at random
+  if count links > 0 [
+    ask one-of turtles with [any? link-neighbors] [ ask my-links [ die ] ]
+  ]
+  set step step + 1
+  ;;find-biggest-components
+  ;;color-giant-component
+  tick
+  ;if layout? [ layout ]
+  ;;if plot? [ do-plotting ]
+  ;;plot-decay
+end
+
 to-report one-available-node
   ;; available means not maxxed out in links and not myself
   let this-available-node one-of other turtles with [ count link-neighbors < max-degree ]
